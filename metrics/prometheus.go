@@ -2,6 +2,8 @@ package metrics
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"net/http"
 )
 
 var (
@@ -25,4 +27,9 @@ var (
 
 func Register() {
 	prometheus.MustRegister(RequestCounter, RequestDuration)
+}
+
+// Handler returns the Prometheus HTTP handler.
+func Handler() http.Handler {
+	return promhttp.Handler()
 }
